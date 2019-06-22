@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="edu.ung.hughs.jobscheduler.Boards_Activity">
+    <item
+        android:id="@+id/new_board"
+        android:orderInCategory="100"
+        android:title="Create New Board"
+        app:showAsAction="never" />
+</menu>
