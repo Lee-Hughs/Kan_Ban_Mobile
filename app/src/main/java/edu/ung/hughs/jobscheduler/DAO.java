@@ -100,13 +100,14 @@ public class DAO {
         return null;
     }
 
-    public boolean addBoard(String name, String desc, int personID)
+    public boolean addBoard(String name, String desc, int personID, ArrayList<String> statusList)
     {
         try{
             String query = "insert into Boards (Name, Description, CreatedBy) values (?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, name);
             pstmt.setString(2, desc);
+            pstmt.setInt(3, personID);
             pstmt.executeUpdate();
             return true;
         }
@@ -130,7 +131,6 @@ public class DAO {
                 pstmt.setNull(3, Types.NVARCHAR);
             pstmt.setString(4, username);
             pstmt.setString(5, hashedPass);
-            //Statement stmt = con.createStatement();
             pstmt.executeUpdate();
             return true;
         }

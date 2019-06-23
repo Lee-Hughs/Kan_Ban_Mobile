@@ -1,6 +1,7 @@
 package edu.ung.hughs.jobscheduler;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Board {
     public int getBoardID() {
@@ -27,6 +28,8 @@ public class Board {
         return timeCreated;
     }
 
+    public ArrayList<String> getStatusList() { return statusList; }
+
     @Override
     public String toString()
     {
@@ -36,9 +39,10 @@ public class Board {
     private int boardID, createdBy;
     private String name,description, timeCreated;
     private Date dateCreated;
+    private ArrayList<String> statusList;
     //private Time timeCreated;
 
-    public Board (int boardID, int createdBy, String name, String description, Date dateCreated, String timeCreated)
+    public Board (int boardID, int createdBy, String name, String description, Date dateCreated, String timeCreated, ArrayList<String> statusList)
     {
         this.boardID = boardID;
         this.createdBy = createdBy;
@@ -46,6 +50,7 @@ public class Board {
         this.description = description;
         this.dateCreated = dateCreated;
         this.timeCreated = timeCreated;
+        this.statusList = statusList;
     }
 
 }
