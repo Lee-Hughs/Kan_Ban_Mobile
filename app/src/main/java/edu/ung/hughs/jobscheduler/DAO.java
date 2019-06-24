@@ -115,7 +115,7 @@ public class DAO {
         }
         catch(SQLException e)
         {
-            Log.e("SQL Exception: ", e.getMessage());
+            Log.e("Problem Inserting Board: ", e.getMessage());
             return false;
         }
         //capture boardID
@@ -124,58 +124,70 @@ public class DAO {
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, name);
             ResultSet rs = pstmt.executeQuery();
+            rs.next();
             boardID = rs.getInt(1);
         }
         catch(SQLException e)
         {
-            Log.e("SQL Exception: ", e.getMessage());
+            Log.e("Problem fetching boardID: ", e.getMessage());
         }
         //insert into status table
-        ArrayList<String> newStatuses = statusList;
+        ArrayList<String> newStatuses = new ArrayList<>();
+        newStatuses.addAll(statusList);
+        Log.e("List: ", newStatuses.toString());
         try{
             String query = "select [Name] from [Status]";
             PreparedStatement stmt = con.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
+            //rs.next();
             String sql = "insert into Status(Name, CreatedBy) values";
-            for(int i = 0; i < statusList.size(); i++)
+            while(rs.next())
             {
+                Log.e("We got here", "We got to line 144, in the while loop, item = " + rs.getString(1));
                 String item = rs.getString(1);
                 if(statusList.contains(item))
                 {
+                    Log.e("We got here", "We got to line 148, in the if statement, itm = " + item);
                     newStatuses.remove(item);
-                    break;
                 }
+            }
+            Log.e("List: ", newStatuses.toString());
+            for(int i = 0; i < newStatuses.size(); i++)
+            {
                 sql += "(?, " + personID + "),";
-            }
-            sql = sql.substring(0,sql.length()-1);
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            for(int i = 1; i <= statusList.size(); i++)
-            {
-                pstmt.setString(i, newStatuses.get(i-1));
-            }
-            pstmt.executeUpdate();
-        }
-        catch(SQLException e){
-            Log.e("SQL Exception: ", e.getMessage());
-            return false;
-        }
-        try{
-            String sql = "insert into StatusLink(StatusName, BoardID, CreatedBy) values";
-            for(int i = 0; i <newStatuses.size(); i++)
-            {
-                sql += "(?, " + boardID + ", " + personID + "),";
             }
             sql = sql.substring(0,sql.length()-1);
             PreparedStatement pstmt = con.prepareStatement(sql);
             for(int i = 1; i <= newStatuses.size(); i++)
             {
+                Log.e("We got here", "We got to line 157 in the for loop, i = " + i + ", and item = " + newStatuses.get(i-1));
                 pstmt.setString(i, newStatuses.get(i-1));
+            }
+            pstmt.executeUpdate();
+        }
+        catch(SQLException e){
+            Log.e("Problem inserting into statusBoard: ", e.getMessage());
+            return false;
+        }
+        try{
+            Log.e("List ", statusList.toString());
+            String sql = "insert into StatusLink(StatusName, BoardID, CreatedBy) values";
+            for(int i = 0; i <statusList.size(); i++)
+            {
+                sql += "(?, " + boardID + ", " + personID + "),";
+            }
+            sql = sql.substring(0,sql.length()-1);
+            Log.e("SQL Query", sql);
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            for(int i = 1; i <= statusList.size(); i++)
+            {
+                pstmt.setString(i, statusList.get(i-1));
             }
             pstmt.executeUpdate();
         }
         catch (SQLException e)
         {
-            Log.e("SQL Exception: ", e.getMessage());
+            Log.e("Problem inserting into linking table: ", e.getMessage());
             return false;
         }
         return true;

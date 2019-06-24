@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -92,9 +93,9 @@ public class NewBoardActivity extends AppCompatActivity {
     private void populateStatusList()
     {
         statusList.clear();
-        for(int i = 1; i < totalStatus; i++)
+        for(int i = 1; i <= totalStatus; i++)
         {
-            EditText s = findViewById(totalStatus);
+            EditText s = findViewById(i);
             if (s.getText().toString() != null && s.getText().toString() != "")
                 statusList.add(s.getText().toString());
             else
@@ -104,6 +105,7 @@ public class NewBoardActivity extends AppCompatActivity {
                 return;
             }
         }
+        Log.e("List from Activity: ", statusList.toString());
         //todo:add check for duplicates
     }
 }
