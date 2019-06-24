@@ -53,4 +53,14 @@ public class Board {
         this.statusList = statusList;
     }
 
+    public Board (int boardID, int createdBy, String name, String description, Date dateCreated, String timeCreated)
+    {
+        this.boardID = boardID;
+        this.createdBy = createdBy;
+        this.name = name;
+        this.description = description;
+        this.dateCreated = dateCreated;
+        this.timeCreated = timeCreated;
+    }
+
 }

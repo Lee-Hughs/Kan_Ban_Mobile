@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -19,7 +20,6 @@ public class DAO {
     private static final String db = "jobschedulerdb";
     private static final String un = "User";
     private static final String pw = "password";
-
     private Connection con;
 
     public DAO() {
@@ -88,7 +88,7 @@ public class DAO {
             ResultSet rs = pstmt.executeQuery();
             ArrayList<Job> jobs = new ArrayList();
             while(rs.next())
-            {
+            {   //todo:Fix this to reflect new database structure
                 jobs.add(new Job(rs.getInt("JobID"), rs.getString("Name"), rs.getString("Description"), rs.getInt("CreatedBy"), rs.getInt("BoardID"), rs.getDate("DateCreated"), rs.getString("TimeCreated"), rs.getString("Status")));
             }
             return jobs;
@@ -102,6 +102,8 @@ public class DAO {
 
     public boolean addBoard(String name, String desc, int personID, ArrayList<String> statusList)
     {
+        int boardID = 0;
+        //insert into boards
         try{
             String query = "insert into Boards (Name, Description, CreatedBy) values (?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -109,13 +111,74 @@ public class DAO {
             pstmt.setString(2, desc);
             pstmt.setInt(3, personID);
             pstmt.executeUpdate();
-            return true;
+            //return true;
         }
         catch(SQLException e)
         {
             Log.e("SQL Exception: ", e.getMessage());
             return false;
         }
+        //capture boardID
+        try{
+            String query = "select BoardID from Boards where [Name] = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            boardID = rs.getInt(1);
+        }
+        catch(SQLException e)
+        {
+            Log.e("SQL Exception: ", e.getMessage());
+        }
+        //insert into status table
+        ArrayList<String> newStatuses = statusList;
+        try{
+            String query = "select [Name] from [Status]";
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            String sql = "insert into Status(Name, CreatedBy) values";
+            for(int i = 0; i < statusList.size(); i++)
+            {
+                String item = rs.getString(1);
+                if(statusList.contains(item))
+                {
+                    newStatuses.remove(item);
+                    break;
+                }
+                sql += "(?, " + personID + "),";
+            }
+            sql = sql.substring(0,sql.length()-1);
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            for(int i = 1; i <= statusList.size(); i++)
+            {
+                pstmt.setString(i, newStatuses.get(i-1));
+            }
+            pstmt.executeUpdate();
+        }
+        catch(SQLException e){
+            Log.e("SQL Exception: ", e.getMessage());
+            return false;
+        }
+        try{
+            String sql = "insert into StatusLink(StatusName, BoardID, CreatedBy) values";
+            for(int i = 0; i <newStatuses.size(); i++)
+            {
+                sql += "(?, " + boardID + ", " + personID + "),";
+            }
+            sql = sql.substring(0,sql.length()-1);
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            for(int i = 1; i <= newStatuses.size(); i++)
+            {
+                pstmt.setString(i, newStatuses.get(i-1));
+            }
+            pstmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            Log.e("SQL Exception: ", e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     public boolean signUp(String firstName, String lastName, String company, String username, String hashedPass)
