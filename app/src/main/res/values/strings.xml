@@ -98,4 +98,7 @@
     <string name="title_activity_new_board">NewBoardActivity</string>
     <string name="enter_name_here">Enter Name Here...</string>
     <string name="enter_description_here">Enter Description Here...</string>
+    <string name="title_activity_board_view">BoardViewActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

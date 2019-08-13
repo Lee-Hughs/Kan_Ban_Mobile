@@ -1,57 +1,46 @@
 package edu.ung.hughs.jobscheduler;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
+import edu.ung.hughs.jobscheduler.ui.main.SectionsPagerAdapter;
 
 public class BoardViewActivity extends AppCompatActivity {
 
+    private int personID;
     private int boardID;
-    private ListView todo,doing,done;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_board_view);
         Intent intent = getIntent();
+
+        personID = intent.getIntExtra("personID", 0);
         boardID = intent.getIntExtra("boardID", 0);
 
-        todo = findViewById(R.id.todo);
-        doing = findViewById(R.id.doing);
-        done = findViewById(R.id.done);
+        setContentView(R.layout.activity_board_view);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionsPagerAdapter);
+        TabLayout tabs = findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
+        FloatingActionButton fab = findViewById(R.id.fab);
 
-        populateListView(boardID, "todo", todo);
-        populateListView(boardID, "doing", doing);
-        populateListView(boardID, "done", done);
-
-    }
-
-
-    private void populateListView(int boardID, String status, ListView listView)
-    {
-        try {
-            DAO dao = new DAO();
-            ArrayAdapter<Job> adapter = new ArrayAdapter<Job>(this, android.R.layout.simple_list_item_1 ,android.R.id.text1, dao.getJobListByBoard(boardID, status));
-            listView.setAdapter(adapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    int jobID = ((Job) parent.getAdapter().getItem(position)).getJobID();
-                    //todo:Create Job View activity and make the on item click point to it
-                   // Intent intent = new Intent(BoardListActivity.this, BoardViewActivity.class);
-                   // intent.putExtra("jobID",jobID);
-                   // startActivity(intent);
-                }
-            });
-        }
-        catch(Exception e)
-        {
-            Log.e("Exception:", e.getMessage());
-        }
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //todo: make this go to add job activity
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 }

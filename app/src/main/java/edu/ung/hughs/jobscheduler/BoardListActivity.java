@@ -31,11 +31,11 @@ public class BoardListActivity extends AppCompatActivity {
         {
             Log.e("Null pointer error: ", e.getMessage());
         }
-        populateListView(personID);
+        populateListView();
 
     }
 
-    private void populateListView(int personID)
+    private void populateListView()
     {               //This may or may not work, who fucking knows
         try {
             DAO dao = new DAO();
@@ -48,6 +48,7 @@ public class BoardListActivity extends AppCompatActivity {
                     int boardID = ((Board) parent.getAdapter().getItem(position)).getBoardID();
                     Intent intent = new Intent(BoardListActivity.this, BoardViewActivity.class);
                     intent.putExtra("boardID",boardID);
+                    intent.putExtra("personID", personID);
                     startActivity(intent);
                 }
             });
