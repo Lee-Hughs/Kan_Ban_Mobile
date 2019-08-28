@@ -97,7 +97,7 @@ public class NewBoardActivity extends AppCompatActivity {
         {
             EditText s = findViewById(i);
             if (s.getText().toString() != null && s.getText().toString() != "")
-                statusList.add(s.getText().toString());
+                statusList.add(s.getText().toString().toUpperCase());
             else
             {
                 statusList.clear();

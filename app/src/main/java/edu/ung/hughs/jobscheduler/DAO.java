@@ -19,7 +19,7 @@ public class DAO {
     private static final String ip = "jobschedulerdb.cz4f7rwct8mz.us-east-1.rds.amazonaws.com";
     private static final String db = "jobschedulerdb";
     private static final String un = "User";
-    private static final String pw = "password";
+    private static final String pw = "E1337pass!";
     private Connection con;
 
     public DAO() {
@@ -100,6 +100,28 @@ public class DAO {
         return null;
     }
 
+    public ArrayList<String> getStatusByBoard(int boardID)
+    {
+        try {
+            String query ="select count(LinkID) from StatusLink where BoardID = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, boardID);
+            ResultSet rs = pstmt.executeQuery();
+            ArrayList<String> statusList = new ArrayList();
+            while(rs.next())
+            {
+                statusList.add(rs.getString("StatusName"));
+            }
+            return statusList;
+        }
+        catch(SQLException e)
+        {
+            Log.e("Problem fetching status list: ", e.getMessage());
+            return null;
+        }
+
+    }
+
     public boolean addBoard(String name, String desc, int personID, ArrayList<String> statusList)
     {
         int boardID = 0;
@@ -144,7 +166,7 @@ public class DAO {
             while(rs.next())
             {
                 Log.e("We got here", "We got to line 144, in the while loop, item = " + rs.getString(1));
-                String item = rs.getString(1);
+                String item = rs.getString(1).toUpperCase();
                 if(statusList.contains(item))
                 {
                     Log.e("We got here", "We got to line 148, in the if statement, itm = " + item);
