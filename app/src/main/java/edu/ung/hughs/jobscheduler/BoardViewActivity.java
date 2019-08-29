@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -23,16 +24,18 @@ public class BoardViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board_view);
+        Intent intent = getIntent();
+        personID = intent.getIntExtra("personID", 0);
+        boardID = intent.getIntExtra("boardID", 0);
         ViewPager vpPager = findViewById(R.id.vpPager);
         DAO dao = new DAO();
         ArrayList<String> columns = dao.getStatusByBoard(boardID);
-        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), columns.size());
+        Log.e("ran938", "boardID: " + boardID + "\nCols:" + columns.toString());
+        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), columns);
         vpPager.setAdapter(adapterViewPager);
 
-        Intent intent = getIntent();
 
-        personID = intent.getIntExtra("personID", 0);
-        boardID = intent.getIntExtra("boardID", 0);
+
 
 
 
@@ -51,16 +54,16 @@ public class BoardViewActivity extends AppCompatActivity {
 
     public static class MyPagerAdapter extends SmartFragmentStatePagerAdapter {
 
-        private static int NUM_ITEMS = 3;
+        private static int NUM_ITEMS;
+        private static ArrayList<String> cols = new ArrayList<>();
 
-        public MyPagerAdapter(FragmentManager fragmentManager)
+
+        public MyPagerAdapter(FragmentManager fragmentManager, ArrayList<String> columns)
         {
             super(fragmentManager);
-        }
-        public MyPagerAdapter(FragmentManager fragmentManager, int tabs)
-        {
-            super(fragmentManager);
-            NUM_ITEMS = tabs;
+            cols = columns;
+            NUM_ITEMS = cols.size();
+            Log.e("inside:", cols.toString());
         }
         @Override
         public int getCount()
@@ -71,13 +74,14 @@ public class BoardViewActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position)
         {
-            return BoardColumnFragment.newInstance(position, "test");
+            return BoardColumnFragment.newInstance(position, cols.get(position));
         }
 
         @Override
         public CharSequence getPageTitle(int position)
         {
-            return "page" + position;
+            Log.e("PageTitle",cols.get(position));
+            return cols.get(position);
         }
     }
 }

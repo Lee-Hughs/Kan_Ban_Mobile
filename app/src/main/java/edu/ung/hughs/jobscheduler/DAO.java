@@ -103,7 +103,7 @@ public class DAO {
     public ArrayList<String> getStatusByBoard(int boardID)
     {
         try {
-            String query ="select count(LinkID) from StatusLink where BoardID = ?";
+            String query ="select StatusName from StatusLink where BoardID = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, boardID);
             ResultSet rs = pstmt.executeQuery();

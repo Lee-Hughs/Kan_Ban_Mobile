@@ -2,10 +2,10 @@ package edu.ung.hughs.jobscheduler;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class BoardColumnFragment extends Fragment {
     private int columnId;
@@ -18,6 +18,7 @@ public class BoardColumnFragment extends Fragment {
         args.putInt("columnID", columnId);
         args.putString("columnName",columnName);
         colFrag.setArguments(args);
+        Log.e("newInstance:" , args.toString());
         return colFrag;
     }
 
