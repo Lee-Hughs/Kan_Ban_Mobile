@@ -81,7 +81,7 @@ public class DAO {
     public ArrayList<Job> getJobListByBoard(int boardID, String status)
     {
         try {
-            String query = "select * from Jobs where BoardID = ? and Status = ?";
+            String query = "select * from Jobs where BoardID = ? and StatusName = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, boardID);
             pstmt.setString(2, status);
@@ -89,8 +89,9 @@ public class DAO {
             ArrayList<Job> jobs = new ArrayList();
             while(rs.next())
             {   //todo:Fix this to reflect new database structure
-                jobs.add(new Job(rs.getInt("JobID"), rs.getString("Name"), rs.getString("Description"), rs.getInt("CreatedBy"), rs.getInt("BoardID"), rs.getDate("DateCreated"), rs.getString("TimeCreated"), rs.getString("Status")));
+                jobs.add(new Job(rs.getInt("JobID"), rs.getString("Name"), rs.getString("Description"), rs.getInt("CreatedBy"), rs.getInt("BoardID"), rs.getDate("DateCreated"), rs.getString("TimeCreated"), rs.getString("StatusName")));
             }
+            Log.e("gotJobList: ", jobs.toString());
             return jobs;
         }
         catch(Exception e)

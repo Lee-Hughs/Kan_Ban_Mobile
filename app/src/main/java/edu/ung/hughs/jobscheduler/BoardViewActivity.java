@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class BoardViewActivity extends AppCompatActivity {
 
     private int personID;
-    private int boardID;
+    private static int boardID;
 
     private SmartFragmentStatePagerAdapter adapterViewPager;
 
@@ -74,7 +74,8 @@ public class BoardViewActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position)
         {
-            return BoardColumnFragment.newInstance(position, cols.get(position));
+            Log.e("BoardViewActivity getItem: ", ("args: " + position + "," + cols.get(position) + "," + boardID));
+            return BoardColumnFragment.newInstance(position, cols.get(position), boardID);
         }
 
         @Override
