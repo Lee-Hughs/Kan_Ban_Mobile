@@ -12,15 +12,18 @@ import java.util.ArrayList;
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
     private final ArrayList<Job> mValues;
-    public MyItemRecyclerViewAdapter(ArrayList<Job> items) {
+
+    private final OnJobListener onJobListener;
+    public MyItemRecyclerViewAdapter(ArrayList<Job> items, OnJobListener onJobListener) {
         mValues = items;
+        this.onJobListener = onJobListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, onJobListener);
     }
 
     @Override
@@ -36,22 +39,35 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
         public Job mItem;
+        OnJobListener onJobListener;
 
-        public ViewHolder(View view) {
+        public ViewHolder(View view, OnJobListener onJobListener) {
             super(view);
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
+            this.onJobListener = onJobListener;
+
+            view.setOnClickListener(this);
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
         }
+
+        @Override
+        public void onClick(View view) {
+            onJobListener.onJobClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnJobListener {
+        void onJobClick(int position);
     }
 }

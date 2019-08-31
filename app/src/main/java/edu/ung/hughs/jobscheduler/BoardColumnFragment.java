@@ -1,5 +1,6 @@
 package edu.ung.hughs.jobscheduler;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,17 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class BoardColumnFragment extends Fragment{
+public class BoardColumnFragment extends Fragment implements MyItemRecyclerViewAdapter.OnJobListener {
     private int columnId;
     private String columnName;
     private int boardID;
-    private RecyclerView rv;
-    private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<Job> jobs;
 
     public static BoardColumnFragment newInstance(int columnId, String columnName, int boardID)
     {
@@ -49,8 +49,18 @@ public class BoardColumnFragment extends Fragment{
         layoutManager = new LinearLayoutManager(this.getContext());
         rv.setLayoutManager(layoutManager);
         DAO dao = new DAO();
-        ArrayList<Job> jobs = dao.getJobListByBoard(boardID, columnName);
-        rv.setAdapter(new MyItemRecyclerViewAdapter(jobs));
+        jobs = dao.getJobListByBoard(boardID, columnName);
+        rv.setAdapter(new MyItemRecyclerViewAdapter(jobs, this));
         return view;
+    }
+
+    @Override
+    public void onJobClick(int position) {
+        Toast.makeText(this.getContext(), "Number: " + Integer.toString(position), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this.getContext(), JobViewActivity.class);
+        intent.putExtra("jobName",jobs.get(position).getName());
+        intent.putExtra("jobDesc",jobs.get(position).getDesc());
+        startActivity(intent);
+        //Todo: go to new job activity
     }
 }
