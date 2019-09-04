@@ -19,14 +19,16 @@ public class BoardColumnFragment extends Fragment implements MyItemRecyclerViewA
     private int boardID;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Job> jobs;
+    private int personID;
 
-    public static BoardColumnFragment newInstance(int columnId, String columnName, int boardID)
+    public static BoardColumnFragment newInstance(int columnId, String columnName, int boardID, int personID)
     {
         BoardColumnFragment colFrag = new BoardColumnFragment();
         Bundle args = new Bundle();
         args.putInt("columnID", columnId);
         args.putString("columnName",columnName);
         args.putInt("boardID", boardID);
+        args.putInt("personID", personID);
         colFrag.setArguments(args);
         Log.e("newInstance:" , args.toString());
         return colFrag;
@@ -39,6 +41,7 @@ public class BoardColumnFragment extends Fragment implements MyItemRecyclerViewA
         columnId = getArguments().getInt("columnID");
         columnName = getArguments().getString("columnName");
         boardID = getArguments().getInt("boardID");
+        personID = getArguments().getInt("personID");
     }
 
     @Override
@@ -60,6 +63,10 @@ public class BoardColumnFragment extends Fragment implements MyItemRecyclerViewA
         Intent intent = new Intent(this.getContext(), JobViewActivity.class);
         intent.putExtra("jobName",jobs.get(position).getName());
         intent.putExtra("jobDesc",jobs.get(position).getDesc());
+        intent.putExtra("jobStatus",jobs.get(position).getStatus());
+        intent.putExtra("jobCreatedBy", jobs.get(position).getCreatedBy());
+        intent.putExtra("boardID", boardID);
+        intent.putExtra("personID", personID);
         startActivity(intent);
         //Todo: go to new job activity
     }

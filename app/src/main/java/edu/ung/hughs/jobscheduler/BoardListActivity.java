@@ -1,11 +1,8 @@
 package edu.ung.hughs.jobscheduler;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -82,6 +79,14 @@ public class BoardListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(BoardListActivity.this, HomeActivity.class);
+        intent.putExtra("personID", personID);
+        startActivity(intent);
     }
 
 }

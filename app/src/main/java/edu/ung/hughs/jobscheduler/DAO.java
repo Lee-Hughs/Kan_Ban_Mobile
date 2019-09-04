@@ -3,14 +3,12 @@ package edu.ung.hughs.jobscheduler;
 import android.annotation.SuppressLint;
 import android.os.StrictMode;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -81,15 +79,15 @@ public class DAO {
     public ArrayList<Job> getJobListByBoard(int boardID, String status)
     {
         try {
-            String query = "select * from Jobs where BoardID = ? and StatusName = ?";
+            String query = "select jobs.*,People.FirstName from Jobs join People on jobs.CreatedBy = People.PersonID where BoardID = ? and StatusName = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, boardID);
             pstmt.setString(2, status);
             ResultSet rs = pstmt.executeQuery();
             ArrayList<Job> jobs = new ArrayList();
             while(rs.next())
-            {   //todo:Fix this to reflect new database structure
-                jobs.add(new Job(rs.getInt("JobID"), rs.getString("Name"), rs.getString("Description"), rs.getInt("CreatedBy"), rs.getInt("BoardID"), rs.getDate("DateCreated"), rs.getString("TimeCreated"), rs.getString("StatusName")));
+            {
+                jobs.add(new Job(rs.getInt("JobID"), rs.getString("Name"), rs.getString("Description"), rs.getString("FirstName"), rs.getInt("BoardID"), rs.getDate("DateCreated"), rs.getString("TimeCreated"), rs.getString("StatusName")));
             }
             Log.e("gotJobList: ", jobs.toString());
             return jobs;

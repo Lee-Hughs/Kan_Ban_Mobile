@@ -5,56 +5,159 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".JobViewActivity">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/TitleText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.075" />
+        android:orientation="vertical">
 
-    <TextView
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name: "
-        android:textSize="32dp"
-        android:id="@+id/NameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/TitleText"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_margin="15dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name Here"
-        android:textSize="32dp"
-        android:id="@+id/NameField"
-        app:layout_constraintTop_toBottomOf="@id/TitleText"
-        app:layout_constraintLeft_toRightOf="@id/NameLabel"
-        android:layout_margin="15dp"/>
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="130dp"
+        tools:layout_editor_absoluteY="16dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_marginTop="32dp"
+        android:contentDescription="TODO" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description: "
-        android:textSize="36sp"
-        android:id="@+id/DescLabel"
-        app:layout_constraintTop_toBottomOf="@+id/NameLabel"
+        android:orientation="vertical"
+        android:id="@+id/nameGroup"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_margin="15dp"/>
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_margin="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name:"
+            android:textSize="16sp"
+            android:id="@+id/NameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name Here"
+            android:textSize="16sp"
+            android:id="@+id/NameField"
+            android:background="@drawable/field_group_border"
+            app:layout_constraintTop_toBottomOf="@id/imageView"
+            app:layout_constraintLeft_toRightOf="@id/NameLabel"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description:"
+            android:textSize="16sp"
+            android:textFontWeight="bold"
+            android:id="@+id/DescLabel"
+            app:layout_constraintTop_toBottomOf="@+id/NameLabel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Desc Here"
+            android:textSize="16sp"
+            android:id="@+id/DescField"
+            android:background="@drawable/field_group_border"
+            app:layout_constraintTop_toBottomOf="@id/DescLabel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Created By:"
+            android:textSize="16sp"
+            android:textFontWeight="bold"
+            android:id="@+id/createdByLabel"
+            app:layout_constraintTop_toBottomOf="@+id/NameLabel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="user-x"
+            android:textSize="16sp"
+            android:id="@+id/createdByField"
+            android:background="@drawable/field_group_border"
+            app:layout_constraintTop_toBottomOf="@id/DescLabel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status:"
+            android:textSize="16sp"
+            android:textFontWeight="bold"
+            android:id="@+id/statusLabel"
+            app:layout_constraintTop_toBottomOf="@+id/NameLabel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="5dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="status"
+            android:textSize="16sp"
+            android:id="@+id/statusField"
+            android:background="@drawable/field_group_border"
+            app:layout_constraintTop_toBottomOf="@id/DescLabel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Desc Here"
-        android:textSize="32dp"
-        android:id="@+id/DescField"
-        app:layout_constraintTop_toBottomOf="@id/NameField"
-        app:layout_constraintLeft_toRightOf="@id/DescLabel"
-        android:layout_margin="15dp"/>
+        android:gravity="center"
+        android:layout_margin="25dp">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:clickable="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="25dp"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            app:backgroundTint="@android:color/darker_gray"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:clickable="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="5dp"
+            app:srcCompat="@android:drawable/ic_menu_send" />
+
+    </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
 
 </android.support.constraint.ConstraintLayout>

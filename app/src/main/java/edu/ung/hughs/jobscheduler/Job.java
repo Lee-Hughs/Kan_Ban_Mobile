@@ -35,11 +35,11 @@ public class Job {
         this.jobID = jobID;
     }
 
-    public int getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(int createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -70,11 +70,11 @@ public class Job {
     @Override
     public String toString(){   return name;    }
 
-    private String name, desc, timeCreated, status;
-    private int jobID, createdBy, boardID;
+    private String name, desc, timeCreated, status, createdBy;
+    private int jobID, boardID;
     private Date dateCreated;
 
-    public Job(int jobID, String name, String desc, int createdBy, int boardID, Date dateCreated, String timeCreated, String status)
+    public Job(int jobID, String name, String desc, String createdBy, int boardID, Date dateCreated, String timeCreated, String status)
     {
         this.jobID = jobID;
         this.name = name;
