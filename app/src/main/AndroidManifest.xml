@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.ung.hughs.jobscheduler">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AddJob"
+            android:label="@string/title_activity_add_job"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".BoardViewActivity"
             android:label="@string/title_activity_board_view"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".JobViewActivity" />
         <activity
             android:name=".NewBoardActivity"
@@ -38,5 +40,7 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".BoardListActivity" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

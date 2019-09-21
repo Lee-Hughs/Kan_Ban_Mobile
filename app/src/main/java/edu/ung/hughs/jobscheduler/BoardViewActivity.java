@@ -45,9 +45,10 @@ public class BoardViewActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo: make this go to add job activity
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(BoardViewActivity.this, AddJob.class);
+                intent.putExtra("personID", personID);
+                intent.putExtra("boardID", boardID);
+                startActivity(intent);
             }
         });
     }

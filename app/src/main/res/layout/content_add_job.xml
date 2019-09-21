@@ -4,28 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JobViewActivity">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="16dp"
-        tools:srcCompat="@tools:sample/avatars"
-        android:layout_marginTop="32dp"
-        android:contentDescription="TODO" />
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AddJob"
+    tools:showIn="@layout/activity_add_job">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,7 +25,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="5dp"/>
-        <TextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Name Here"
@@ -54,8 +35,6 @@
             app:layout_constraintTop_toBottomOf="@id/imageView"
             app:layout_constraintLeft_toRightOf="@id/NameLabel"
             android:layout_margin="5dp"/>
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/NameLabel"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="5dp"/>
-        <TextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="status"
@@ -106,10 +85,11 @@
             app:layout_constraintTop_toBottomOf="@+id/NameLabel"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="5dp"/>
-        <TextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="100sp"
+            android:gravity="top"
             android:text="Desc Here"
             android:textSize="16sp"
             android:id="@+id/DescField"
@@ -118,48 +98,5 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="5dp"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_margin="25dp">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_red_light"
-            android:clickable="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="25dp"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            app:backgroundTint="@android:color/darker_gray"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingActionButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_green_dark"
-            android:clickable="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="5dp"
-            app:srcCompat="@android:drawable/ic_menu_send" />
-
-    </LinearLayout>
-    </LinearLayout>
-
-</ScrollView>
 
 </android.support.constraint.ConstraintLayout>

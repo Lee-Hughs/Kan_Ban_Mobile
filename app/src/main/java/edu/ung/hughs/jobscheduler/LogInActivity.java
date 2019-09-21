@@ -36,6 +36,9 @@ public class LogInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(getIntent().getBooleanExtra("EXIT", false))
+            finish();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in_view);
 
@@ -100,5 +103,13 @@ public class LogInActivity extends AppCompatActivity {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(LogInActivity.this, LogInActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("EXIT", true);
+        startActivity(intent);
     }
 }
