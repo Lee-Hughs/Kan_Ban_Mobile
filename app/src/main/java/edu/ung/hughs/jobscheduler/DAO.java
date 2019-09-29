@@ -17,7 +17,7 @@ public class DAO {
     private static final String ip = "jobschedulerdb.cz4f7rwct8mz.us-east-1.rds.amazonaws.com";
     private static final String db = "jobschedulerdb";
     private static final String un = "User";
-    private static final String pw = "E1337pass!";
+    private static final String pw = "b!6DenrGy";
     private Connection con;
 
     public DAO() {
@@ -119,6 +119,42 @@ public class DAO {
             return null;
         }
 
+    }
+
+    public boolean addJob(int boardID, String statusName, String jobName, String desc, int createdBy)
+    {
+        try{
+            String query = "insert into Jobs (BoardID, StatusName, Name, Description, CreatedBy) values (?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, boardID);
+            pstmt.setString(2, statusName);
+            pstmt.setString(3, jobName);
+            pstmt.setString(4, desc);
+            pstmt.setInt(5, createdBy);
+            pstmt.executeUpdate();
+            return true;
+        }
+        catch(SQLException e)
+        {
+            Log.e("Problem inserting job: ", e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean removeJob(int jobID)
+    {
+        try{
+            String query = "remove from Jobs where jobID = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, jobID);
+            pstmt.executeUpdate();
+            return true;
+        }
+        catch(SQLException e)
+        {
+            Log.e("Problem removing job: ", e.getMessage());
+            return false;
+        }
     }
 
     public boolean addBoard(String name, String desc, int personID, ArrayList<String> statusList)

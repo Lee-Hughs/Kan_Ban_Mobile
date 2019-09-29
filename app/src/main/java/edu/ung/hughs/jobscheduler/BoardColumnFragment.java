@@ -61,6 +61,7 @@ public class BoardColumnFragment extends Fragment implements MyItemRecyclerViewA
     public void onJobClick(int position) {
         Toast.makeText(this.getContext(), "Number: " + Integer.toString(position), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this.getContext(), JobViewActivity.class);
+        intent.putExtra("jobID", jobs.get(position).getJobID());
         intent.putExtra("jobName",jobs.get(position).getName());
         intent.putExtra("jobDesc",jobs.get(position).getDesc());
         intent.putExtra("jobStatus",jobs.get(position).getStatus());

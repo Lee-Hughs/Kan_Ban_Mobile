@@ -35,46 +35,7 @@
             app:layout_constraintTop_toBottomOf="@id/imageView"
             app:layout_constraintLeft_toRightOf="@id/NameLabel"
             android:layout_margin="5dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Created By:"
-            android:textSize="16sp"
-            android:textFontWeight="bold"
-            android:id="@+id/createdByLabel"
-            app:layout_constraintTop_toBottomOf="@+id/NameLabel"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_margin="5dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="user-x"
-            android:textSize="16sp"
-            android:id="@+id/createdByField"
-            android:background="@drawable/field_group_border"
-            app:layout_constraintTop_toBottomOf="@id/DescLabel"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_margin="5dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status:"
-            android:textSize="16sp"
-            android:textFontWeight="bold"
-            android:id="@+id/statusLabel"
-            app:layout_constraintTop_toBottomOf="@+id/NameLabel"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_margin="5dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="status"
-            android:textSize="16sp"
-            android:id="@+id/statusField"
-            android:background="@drawable/field_group_border"
-            app:layout_constraintTop_toBottomOf="@id/DescLabel"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_margin="5dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
