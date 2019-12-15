@@ -141,10 +141,30 @@ public class DAO {
         }
     }
 
+    public boolean updateJob(int jobID, String name, String desc, String status)
+    {
+        try{
+            String query = "update Jobs set Name = ?, Description = ?, StatusName = ? where jobID = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, name);
+            pstmt.setString(2, desc);
+            pstmt.setString(3, status);
+            pstmt.setInt(4, jobID);
+            pstmt.executeUpdate();
+            return true;
+        }
+        catch(SQLException e)
+        {
+            Log.e("Problem updating Job", e.getMessage());
+            return false;
+        }
+
+    }
+
     public boolean removeJob(int jobID)
     {
         try{
-            String query = "remove from Jobs where jobID = ?";
+            String query = "delete from Jobs where jobID = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, jobID);
             pstmt.executeUpdate();

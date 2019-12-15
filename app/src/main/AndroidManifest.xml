@@ -10,9 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".MyProfile"
+            android:label="@string/title_activity_my_profile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".JobEdit"
+            android:label="@string/title_activity_job_edit"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".AddJob"
             android:label="@string/title_activity_add_job"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".BoardViewActivity"
             android:label="@string/title_activity_board_view"

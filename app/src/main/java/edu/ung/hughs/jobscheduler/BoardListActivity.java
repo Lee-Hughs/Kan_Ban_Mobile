@@ -36,7 +36,7 @@ public class BoardListActivity extends AppCompatActivity {
     {               //This may or may not work, who fucking knows
         try {
             DAO dao = new DAO();
-            ArrayAdapter<Board> adapter = new ArrayAdapter<Board>(this, android.R.layout.simple_list_item_1 ,android.R.id.text1, dao.getBoardList(personID));
+            ArrayAdapter<Board> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1 ,android.R.id.text1, dao.getBoardList(personID));
             ListView listView = findViewById(R.id.boardList);
             listView.setAdapter(adapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

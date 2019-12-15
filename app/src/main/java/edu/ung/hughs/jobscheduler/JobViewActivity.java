@@ -39,7 +39,7 @@ public class JobViewActivity extends AppCompatActivity {
         boardID = intent.getIntExtra("boardID", 0);
 
         //Get Job details from intent
-
+        //todo: why the fuck did i do this, this should just be retrieved by DAO, why are you passing so god damn much information through intents
         jobName = intent.getStringExtra("jobName");
         jobDesc = intent.getStringExtra("jobDesc");
         jobStatus = intent.getStringExtra("jobStatus");
@@ -75,6 +75,7 @@ public class JobViewActivity extends AppCompatActivity {
                         Intent intent = new Intent(JobViewActivity.this, BoardViewActivity.class);
                         intent.putExtra("personID", personID);
                         intent.putExtra("boardID", boardID);
+                        startActivity(intent);
                     }
                     else
                         Snackbar.make(view, "Error Removing Job", Snackbar.LENGTH_LONG)
@@ -89,7 +90,15 @@ public class JobViewActivity extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(JobViewActivity.this, JobEdit.class);
+                intent.putExtra("boardID", boardID);
+                intent.putExtra("jobName", jobName);
+                intent.putExtra("createdBy", jobCreatedBy);
+                intent.putExtra("status", jobStatus);
+                intent.putExtra("jobDesc", jobDesc);
+                intent.putExtra("personID", personID);
+                intent.putExtra("jobID", jobID);
+                startActivity(intent);
             }
         });
 
